@@ -9,6 +9,48 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:srcCompat="@drawable/ic_baseline_cloud_download_24"
+            app:tint="@color/colorPrimary"
+            android:layout_gravity="center"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/xlarge_space">
+        <RadioButton
+            android:id="@+id/downloadGlide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/download_glide"
+            android:layout_marginBottom="@dimen/large_space"/>
+        <RadioButton
+            android:id="@+id/downloadLoadApp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/download_loadApp"
+            android:layout_marginBottom="@dimen/large_space"/>
+        <RadioButton
+            android:id="@+id/downloadRetrofit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/download_retrofit"/>
+    </RadioGroup>
     <com.udacity.LoadingButton
         android:id="@+id/custom_button"
         android:layout_width="0dp"
@@ -16,7 +58,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_height="60dp"
         android:layout_margin="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
