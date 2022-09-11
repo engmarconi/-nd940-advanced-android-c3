@@ -8,14 +8,18 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.udacity.activities.DetailActivity
+import com.udacity.models.NotificationData
+import com.udacity.utils.IS_SUCCESS_KEY
+import com.udacity.utils.REPO_NAME_KEY
 
 private val NOTIFICATION_ID = 0
 
-fun NotificationManager.sendNotification(data: NotificationData,  context: Context){
+fun NotificationManager.sendNotification(data: NotificationData, context: Context){
 
     val contentIntent = Intent(context, DetailActivity::class.java)
-    contentIntent.putExtra("repositoryName", data.repositoryName)
-    contentIntent.putExtra("isSuccess", data.isSuccess)
+    contentIntent.putExtra(REPO_NAME_KEY, data.repositoryName)
+    contentIntent.putExtra(IS_SUCCESS_KEY, data.isSuccess)
 
     val pendingIntent = PendingIntent.getActivity(
         context,

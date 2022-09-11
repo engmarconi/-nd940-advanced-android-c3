@@ -5,54 +5,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".DetailActivity"
+    tools:context=".activities.DetailActivity"
     android:layout_marginTop="@dimen/xlarge_space"
     android:layout_marginBottom="@dimen/xlarge_space"
     android:layout_marginStart="@dimen/large_space"
     android:layout_marginEnd="@dimen/large_space"
-    tools:showIn="@layout/activity_detail">
+    app:layoutDescription="@xml/details_scene"
+    app:motionDebug="SHOW_PATH"
+    tools:showIn="@layout/activity_detail"
+    android:id="@+id/motion_layout">
 
-    <LinearLayout
-        android:id="@+id/filenameView"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/filenameTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="@string/filename"/>
+        android:layout_weight="0.5"
+        android:text="@string/filename"/>
 
-        <TextView
-            android:id="@+id/filenameText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/filenameText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/filenameView"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/xlarge_space"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="@string/status"/>
+        android:text="@string/download_glide"
+        android:textColor="@color/colorPrimaryDark"/>
 
-        <TextView
-            android:id="@+id/statusText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/statusTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:text="@string/status"/>
+
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:text="Success" />
 
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

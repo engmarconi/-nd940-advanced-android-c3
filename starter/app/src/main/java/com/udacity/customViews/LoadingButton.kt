@@ -1,15 +1,15 @@
-package com.udacity
+package com.udacity.customViews
 
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.DecelerateInterpolator
+import com.udacity.R
 import kotlin.properties.Delegates
 
 private const val ANIMATION_BASE_DURATION_MS: Long = 2000 // milliseconds

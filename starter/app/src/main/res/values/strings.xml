@@ -22,4 +22,6 @@
     <string name="select_file_message">Please select file to download</string>
     <string name="filename">Filename</string>
     <string name="status">Status</string>
+    <string name="success">Success</string>
+    <string name="fail">Fail</string>
 </resources>

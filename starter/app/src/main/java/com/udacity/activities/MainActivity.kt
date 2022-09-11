@@ -1,4 +1,4 @@
-package com.udacity
+package com.udacity.activities
 
 import android.app.DownloadManager
 import android.app.NotificationManager
@@ -15,9 +15,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import com.udacity.models.NotificationData
+import com.udacity.R
+import com.udacity.createChannel
+import com.udacity.sendNotification
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import org.w3c.dom.Text
 
 
 class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener {
@@ -28,19 +31,32 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
     private lateinit var pendingIntent: PendingIntent
     private lateinit var action: NotificationCompat.Action
     private var selectedUrl: String = ""
+    private var selectedUrlName: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        selectedUrl = resources.getString(R.string.download_loadApp)
+        selectedUrlName = resources.getString(R.string.success)
 
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
         custom_button.setOnClickListener {
             if (TextUtils.isEmpty(selectedUrl)) {
                 Toast.makeText(this, getString(R.string.select_file_message), Toast.LENGTH_SHORT)
                     .show()
-            } else
-                download()
+            } else {
+                val data = NotificationData(
+                    getString(R.string.notification_title),
+                    getString(R.string.notification_description),
+                    selectedUrlName,
+                    true
+                )
+                notificationManager.sendNotification(
+                    data, this
+                )
+            }
+            //download()
         }
 
         downloadGlide.setOnCheckedChangeListener(this)
@@ -66,7 +82,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
             val data = NotificationData(
                 getString(R.string.notification_title),
                 getString(R.string.notification_description),
-                "",
+                selectedUrlName,
                 true
             )
             notificationManager.sendNotification(
@@ -100,10 +116,21 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
     }
 
     override fun onCheckedChanged(button: CompoundButton, p1: Boolean) {
-        when (button.id) {
-            R.id.downloadGlide -> selectedUrl = glideURL
-            R.id.downloadLoadApp -> selectedUrl = loadAppURL
-            R.id.downloadRetrofit -> selectedUrl = retrofitURL
+        if (p1) {
+            when (button.id) {
+                R.id.downloadGlide -> {
+                    selectedUrl = glideURL
+                    selectedUrlName = resources.getString(R.string.download_glide)
+                }
+                R.id.downloadLoadApp -> {
+                    selectedUrl = loadAppURL
+                    selectedUrlName = resources.getString(R.string.download_loadApp)
+                }
+                R.id.downloadRetrofit -> {
+                    selectedUrl = retrofitURL
+                    selectedUrlName = resources.getString(R.string.download_retrofit)
+                }
+            }
         }
     }
 

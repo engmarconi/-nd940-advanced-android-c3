@@ -1,4 +1,4 @@
-package com.udacity
+package com.udacity.models
 
 data class NotificationData(
     val title: String,
