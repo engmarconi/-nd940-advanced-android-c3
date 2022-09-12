@@ -58,6 +58,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_height="60dp"
         android:layout_margin="20dp"
+        app:textColor="@color/white"
+        app:buttonBackground="@color/colorPrimary"
+        app:progressBarColor="@color/colorPrimaryDark"
+        app:progressCircleColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

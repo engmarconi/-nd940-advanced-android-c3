@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
@@ -17,8 +18,20 @@ private const val ANIMATION_BASE_DURATION_MS: Long = 2000 // milliseconds
 class LoadingButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
+
+    companion object {
+        private const val DEFAULT_BACKGROUND_COLOR = Color.GREEN
+        private const val DEFAULT_PROGRESS_BAR_COLOR = Color.DKGRAY
+        private const val DEFAULT_PROGRESS_CIRCLE_COLOR = Color.YELLOW
+        private const val DEFAULT_TEXT_COLOR = Color.WHITE
+    }
+
     private var widthSize = 0
     private var heightSize = 0
+    private var bgColor = DEFAULT_BACKGROUND_COLOR
+    private var progressBarColor = DEFAULT_PROGRESS_BAR_COLOR
+    private var progressCircleColor = DEFAULT_PROGRESS_CIRCLE_COLOR
+    private var textColor = DEFAULT_TEXT_COLOR
 
     private var valueAnimator = ValueAnimator()
     private var progress = 0f
@@ -48,6 +61,18 @@ class LoadingButton @JvmOverloads constructor(
 
     init {
         isClickable = true
+        setupAttributes(attrs)
+    }
+
+    private fun setupAttributes(attrs: AttributeSet?) {
+        val typedArray = context.theme.obtainStyledAttributes(
+            attrs,
+            R.styleable.LoadingButton, 0, 0
+        )
+        bgColor = typedArray.getColor(R.styleable.LoadingButton_buttonBackground, DEFAULT_BACKGROUND_COLOR)
+        progressBarColor = typedArray.getColor(R.styleable.LoadingButton_progressBarColor, DEFAULT_PROGRESS_BAR_COLOR)
+        progressCircleColor = typedArray.getColor(R.styleable.LoadingButton_progressCircleColor, DEFAULT_PROGRESS_CIRCLE_COLOR)
+        textColor = typedArray.getColor(R.styleable.LoadingButton_textColor, DEFAULT_TEXT_COLOR)
     }
 
 
@@ -63,7 +88,7 @@ class LoadingButton @JvmOverloads constructor(
     }
 
     private fun Canvas.drawBackground() {
-        paint.color = resources.getColor(R.color.colorPrimary)
+        paint.color = bgColor
         save()
         translate(0f, 0f)
         drawRect(0f, 0f, width.toFloat(), height.toFloat(), paint)
@@ -71,7 +96,7 @@ class LoadingButton @JvmOverloads constructor(
     }
 
     private fun Canvas.drawProgressBar() {
-        paint.color = resources.getColor(R.color.colorPrimaryDark, resources.newTheme())
+        paint.color = progressBarColor
         save()
         val dx = width * progress
         drawRect(0f, 0f, dx, height.toFloat(), paint)
@@ -82,7 +107,7 @@ class LoadingButton @JvmOverloads constructor(
     private fun Canvas.drawText() {
         paint.textSize = textSize
         paint.textAlign = Paint.Align.CENTER
-        paint.color = resources.getColor(R.color.white, resources.newTheme())
+        paint.color = textColor
 
         save()
         val xPos = (width / 2f)
@@ -102,7 +127,7 @@ class LoadingButton @JvmOverloads constructor(
         )
         save()
         translate(width - circleRightOffset, (height - circleRadius) / 2f)
-        paint.color = resources.getColor(R.color.colorAccent, resources.newTheme())
+        paint.color = progressCircleColor
         drawArc(rectF, -90f, progress * 360, true, paint)
         restore()
     }
